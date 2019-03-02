@@ -1,0 +1,26 @@
+{
+  "name": "goon-bot",
+  "version": "1.0.0",
+  "description": "Multifunctional discord bot",
+  "main": "bot.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "express": "^4.16.4",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raywhui/goon-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raywhui/goon-bot/issues"
+  },
+  "homepage": "https://github.com/raywhui/goon-bot#readme"
+}

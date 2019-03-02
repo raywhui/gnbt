@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+
+
+# files to ignore
+config.js
+auth.json
