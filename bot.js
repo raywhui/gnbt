@@ -71,6 +71,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
             case 'shuan':
 
+            case 'eatat': //where to go eat?
+                switch(setCmd) {
+                    case 'japanese':
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'testing "eat at" japanese command'
+                        });
+                        break;
+                    default:
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'testing "eat at" any category command'
+                        });
+                        break;
+                }
+
             break;
             // Just add any case commands if you want to..
     }
