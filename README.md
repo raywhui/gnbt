@@ -1,2 +1,2 @@
-# goon-bot
+# GOONBOT
 Multifunctional discord bot
