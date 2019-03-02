@@ -19,7 +19,7 @@ const bot = new Discord.Client({
 const message = () => {
     bot.sendMessage({
         to: channelID,
-        message: `france test ${}`
+        message: `france test ${secCmd}`
     });
 }
 
@@ -30,6 +30,11 @@ bot.on('ready', (evt) => {
   logger.info(bot.username + ' - (' + bot.id + ')');
 });
 
+bot.setPresence({
+  game:{
+        name:"with ya girls coochie"
+  }
+});
 
 
 bot.on('message', function (user, userID, channelID, message, evt) {
@@ -39,7 +44,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     var args = message.substring(1).split(' ');
     var cmd = args[0];
     var secCmd = args[1];
-  
+
     args = args.splice(1);
         switch(cmd) {
             case 'track':
@@ -69,7 +74,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         });
                         break;
                 }
-            case 'shuan':
+            case 'whogay':
+              bot.sendMessage({
+                to: channelID,
+                message: "hahaaha u are " + "<@!" + userID + ">"
+              })
 
             break;
             // Just add any case commands if you want to..
