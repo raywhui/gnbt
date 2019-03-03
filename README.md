@@ -1,6 +1,7 @@
 # GOONBOT
-Multifunctional discord bot
+This is a multifunctional discord bot that currently has the following functions:
 
+1. Track packages
 
 ## Setup
 1. Run `npm install` in your terminal to download all the packages needed for this bot.
