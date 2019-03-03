@@ -1,7 +1,7 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const auth = require('./auth.json');
-const search = require('./ups_search.js');
+const search = require('./actions/ups_search.js');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -9,9 +9,8 @@ logger.add(new logger.transports.Console, {
     colorize: true
 });
 
-// hello can you read this france?
-
 logger.level = 'debug';
+
 // Initialize Discord Bot
 const bot = new Discord.Client({
   token: auth.token,
@@ -39,8 +38,6 @@ bot.setPresence({
   });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
-  // Our bot needs to know if it will execute a command
-  // It will listen for messages that will start with `!`
   if (message.substring(0, 1) == '$') {
     var args = message.substring(1).split(' ');
     var cmd = args[0];
@@ -65,6 +62,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             message: `james test ${secCmd}`
                         });
                         break;
+                    // UPS tracking case
                     case `${trackId[0]}${trackId[1]}` == `1Z` && secCmd.length == 18:
                         search(secCmd, thirdCmd)
                             .then((response) => {
@@ -88,7 +86,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                   message: "hahaaha u are " + "<@!" + userID + ">"
                 });
             break;
-            // Just add any case commands if you want to..
     }
   }
 });
