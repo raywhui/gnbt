@@ -1,5 +1,5 @@
 # GOONBOT
-This is a multifunctional discord bot that currently has the following functions:
+This is a multifunctional, quality of life discord bot that currently has the following functions:
 
 1. Track packages
 
@@ -14,9 +14,12 @@ This is a multifunctional discord bot that currently has the following functions
   "upsServiceAccessToken": <UPS_SERVICE_ACCESS_TOKEN>,
 }
 ```
+3. Run `node bot.js` to run the bot on your Discord server.
+4. (Add more instructions after getting actual server up)
 
 ## Future Updates
 Planned updates for our bot, broken down into functionality we need immediately and other's that are lower priority.
+
 #### Immediate
 - Fedex package tracking
 - USPS package tracking
@@ -25,7 +28,7 @@ Planned updates for our bot, broken down into functionality we need immediately 
 - DHL package tracking
 
 ## Contributors
-- Raymond (Lead Developer)
-- James (Developer)
-- Alvin (Readme UI/UX)
-- France (has yet to commit anything)
+- raywhui (Lead Developer)
+- jktam (Developer)
+- alvinwklee (Product Designer that edits readme's)
+- heyfdc (has yet to commit anything)
