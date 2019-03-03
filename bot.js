@@ -81,14 +81,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         break;
                 }
 
-            case 'shuan':
-
             //james
             case 'chow':   //where to go eat?
                             //e.g. "$chow japanese 4 5" to spit back a random japanese restaurant rated 4+ stars within 5 miles
                             //$chow <category> <minumum stars> <maximum distance in miles>
                             //$chow <empty> ---> any restaurant 3.5+ stars within 5 miles
-                switch(args) {
+                switch(secCmd) {
                     case 'japanese':
                         bot.sendMessage({
                             to: channelID,
@@ -111,7 +109,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                   message: "hahaaha u are " + "<@!" + userID + ">"
                 });
 
-            break;
+                break;
     }
   }
 });
