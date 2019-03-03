@@ -1,5 +1,5 @@
 const axios = require("axios");
-const auth = require("./auth.json");
+const auth = require("../auth.json");
 const upsReqBody = require("./consts/requestBody.js");
 const moment = require("moment");
 
