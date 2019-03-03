@@ -100,6 +100,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         });
                         break;
                 }
+                
+                break;
 
             //end james
 
