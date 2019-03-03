@@ -18,11 +18,12 @@ const packageTracking = (tracking) => {
       auth.upsServiceAccessToken,
       tracking
     ));
-}
+};
 
 /**
  * Function to pull relevant data for easy user consumption
  * @param {Object} activity - Object containing ups package tracking information
+ * @return {String} - Resolves with package status description
  */
 const searchPackage = (activity) => {
   const dateTime = moment(
@@ -31,46 +32,39 @@ const searchPackage = (activity) => {
   ).format('h:mm:ssa MMM DD, YYYY');
   switch (activity.Status.Type) {
     case 'D':
-      console.log(`${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`)
-      break;
+      return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
     case 'I':
-      console.log(`${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`)
-      console.log("-----------------------------------")
-      break;
+      return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
     case 'M':
-      console.log(`${activity.Status.Description} on ${dateTime}`)
-      console.log("-----------------------------------")
-      break;
+      return `${activity.Status.Description} on ${dateTime}`;
     default:
-      console.log(`Untracked ${trackingData.Status}`);
-      break;
+      return `Untracked ${trackingData.Status}`;
   };
 };
 
-// V Define search function
-async function search(arg3) {
+/**
+ * Async function to run through seachPackage
+ * @param {String} arg3 - string for third argument "all" 
+ * @return {String} - Resolves with first or all package status descriptions
+ */
+async function search(trackingId, arg3) {
   try {
-    const data = await packageTracking(auth.test);
+    let message = '';
+    const data = await packageTracking(trackingId);
     const trackingData = data.data.TrackResponse.Shipment.Package.Activity;
     switch (arg3) {
-      case 'all':
-        for (activity of trackingData) {
-          await searchPackage(activity);
+      case '--all':
+        for ([index, activity] of trackingData.entries()) {
+          const allData = await searchPackage(activity);
+          message = `${message}${allData}\n`;
         };
-        break;
+        return message;
       default:
-        await searchPackage(trackingData[0]);
-        break;
+        return searchPackage(trackingData[0]);
     };
   } catch(err) {
     return `ERROR: ${err}`;
   };
 };
 
-
-// Running search function
-// module.exports = search;
-search('all')
-
-// console.log(moment('', '').format())
-// console.log(moment('15583720190211', 'hhmmssYYYYMMDD').format('h:mm:ssa MMM DD, YYYY'))
+module.exports = search;

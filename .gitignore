@@ -64,3 +64,4 @@ typings/
 # files to ignore
 config.js
 auth.json
+test.js
