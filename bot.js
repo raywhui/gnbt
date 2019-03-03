@@ -72,7 +72,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'shuan':
 
             case 'eatat': //where to go eat?
-                switch(setCmd) {
+                switch(secCmd) {
                     case 'japanese':
                         bot.sendMessage({
                             to: channelID,
