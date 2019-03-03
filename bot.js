@@ -1,6 +1,8 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const auth = require('./auth.json');
+const search = require('./ups_search.js');
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -43,30 +45,37 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     var args = message.substring(1).split(' ');
     var cmd = args[0];
     var secCmd = args[1];
+    var thirdCmd = args[2];
   
     args = args.splice(1);
         switch(cmd) {
             case 'track':
-                switch(secCmd) {
-                    case 'france':
+                // Forces all tracking ID's to be upper case
+                const trackId = secCmd.toUpperCase();
+                switch(true) {
+                    case secCmd == 'france':
                         bot.sendMessage({
                             to: channelID,
                             message: `france test ${secCmd}`
                         });
                         break;
-                    case 'james':
+                    case secCmd == 'james':
                         bot.sendMessage({
                             to: channelID,
                             message: `james test ${secCmd}`
                         });
                         break;
-                    case 'raymond':
-                        bot.sendMessage({
-                            to: channelID,
-                            message: `Raymond test ${secCmd}`
-                        });
+                    case `${trackId[0]}${trackId[1]}` == `1Z` && secCmd.length == 18:
+                        search(secCmd, thirdCmd)
+                            .then((response) => {
+                                bot.sendMessage({
+                                    to: channelID,
+                                    message: response
+                                });
+                            })
                         break;
                     default:
+                        console.log(secCmd.includes('1Z'));
                         bot.sendMessage({
                             to: channelID,
                             message: `Invalid tracking code.`
