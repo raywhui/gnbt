@@ -19,7 +19,7 @@ const bot = new Discord.Client({
 const message = () => {
     bot.sendMessage({
         to: channelID,
-        message: `france test ${}`
+        message: `france test ${afdsf}`
     });
 }
 
@@ -30,7 +30,11 @@ bot.on('ready', (evt) => {
   logger.info(bot.username + ' - (' + bot.id + ')');
 });
 
-
+bot.setPresence({
+    game:{
+        name: "games with your heart."
+    }
+  });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
   // Our bot needs to know if it will execute a command
@@ -69,6 +73,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         });
                         break;
                 }
+
             case 'shuan':
 
             //james
@@ -92,6 +97,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
 
             //end james
+
+            case 'whoami':
+                bot.sendMessage({
+                  to: channelID,
+                  message: "hahaaha u are " + "<@!" + userID + ">"
+                });
 
             break;
             // Just add any case commands if you want to..
