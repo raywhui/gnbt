@@ -71,8 +71,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
             case 'shuan':
 
-            case 'eatat': //where to go eat?
-                switch(secCmd) {
+            //james
+            case 'chow':   //where to go eat?
+                            //e.g. "$chow japanese 4 5" to spit back a random japanese restaurant rated 4+ stars within 5 miles
+                            //$chow <category> <minumum stars> <maximum distance in miles>
+                            //$chow <empty> ---> any restaurant 3.5+ stars within 5 miles
+                switch(args) {
                     case 'japanese':
                         bot.sendMessage({
                             to: channelID,
@@ -86,6 +90,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         });
                         break;
                 }
+
+            //end james
 
             break;
             // Just add any case commands if you want to..
