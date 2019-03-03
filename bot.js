@@ -48,7 +48,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         switch(cmd) {
             case 'track':
                 // Forces all tracking ID's to be upper case
-                const trackId = secCmd.toUpperCase();
+                let trackId;
+                let firstChar;
+                let secChar;
+                if (secCmd !== undefined) {
+                    trackId = secCmd.toUpperCase();
+                    firstChar = trackId[0];
+                    secChar = trackId[1];
+                };
                 switch(true) {
                     case secCmd == 'france':
                         bot.sendMessage({
@@ -63,7 +70,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         });
                         break;
                     // UPS tracking case
-                    case `${trackId[0]}${trackId[1]}` == `1Z` && secCmd.length == 18:
+                    case `${firstChar}${secChar}` == `1Z` && secCmd.length == 18:
                         search(secCmd, thirdCmd)
                             .then((response) => {
                                 bot.sendMessage({
@@ -73,13 +80,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             })
                         break;
                     default:
-                        console.log(secCmd.includes('1Z'));
                         bot.sendMessage({
                             to: channelID,
                             message: `Invalid tracking code.`
                         });
                         break;
                 }
+            break;
             case 'whoami':
                 bot.sendMessage({
                   to: channelID,
