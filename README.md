@@ -8,14 +8,14 @@ This is a multifunctional, quality of life discord bot that currently has the fo
 2. Create a file `auth.json` and place is at the root of the directory. The file should look like this:
 ```json
 {
-  "token": <DISCORD_TOKEN>,
-  "upsUser": <UPS_USER_EMAIL>,
-  "upsPass": <UPS_USER_PASSWORD>,
-  "upsServiceAccessToken": <UPS_SERVICE_ACCESS_TOKEN>,
+  "token": DISCORD_TOKEN,
+  "upsUser": UPS_USER_EMAIL,
+  "upsPass": UPS_USER_PASSWORD,
+  "upsServiceAccessToken": UPS_SERVICE_ACCESS_TOKEN,
 }
 ```
 3. Run `node bot.js` to run the bot on your Discord server.
-4. (Add more instructions after getting actual server up)
+4. (Add more instructions after we get an actual server up)
 
 ## Future Updates
 Planned updates for our bot, broken down into functionality we need immediately and other's that are lower priority.
