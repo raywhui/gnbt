@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raywhui/goon-bot.git"
+    "url": "git+https://github.com/raywhui/gnbt.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/raywhui/goon-bot/issues"
+    "url": "https://github.com/raywhui/gnbot/issues"
   },
-  "homepage": "https://github.com/raywhui/goon-bot#readme"
+  "homepage": "https://github.com/raywhui/gnbt#readme"
 }
