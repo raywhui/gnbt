@@ -1,4 +1,4 @@
-# GOONBOT
+# GNBT
 This is a multifunctional, quality of life discord bot that currently has the following functions:
 
 1. Track packages
