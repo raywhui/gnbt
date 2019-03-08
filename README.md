@@ -26,7 +26,8 @@ Planned updates for our bot, broken down into functionality we need immediately 
 - Yelp Restaurant Search
 #### Later
 - DHL package tracking
-
+- Mass message delete
+- Event Calendar
 ## Contributors
 - raywhui (Lead Developer)
 - jktam (Developer)
