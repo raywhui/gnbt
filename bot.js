@@ -33,7 +33,7 @@ bot.on('ready', (evt) => {
 
 bot.setPresence({
     game:{
-        name: "games with your heart."
+        name: "dice in the alley"
     }
   });
 
@@ -43,7 +43,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     var cmd = args[0];
     var secCmd = args[1];
     var thirdCmd = args[2];
-  
+
     args = args.splice(1);
         switch(cmd) {
             case 'track':
@@ -75,7 +75,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             .then((response) => {
                                 bot.sendMessage({
                                     to: channelID,
-                                    message: response
+                                    message: "Hey" + "<@!" + userID + ">! " + "Your current package status is: " + response
                                 });
                             })
                         break;
@@ -96,28 +96,46 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     case 'japanese':
                         bot.sendMessage({
                             to: channelID,
-                            message: 'testing "eat at" japanese command'
+                            message: 'Why aren\'t you eating at IPOT?'
                         });
                         break;
                     default:
                         bot.sendMessage({
                             to: channelID,
-                            message: 'testing "eat at" any category command'
+                            message: 'Eat at IPOT'
                         });
                         break;
                 }
-                
+
                 break;
 
             //end james
 
-            case 'whoami':
-                bot.sendMessage({
-                  to: channelID,
-                  message: "hahaaha u are " + "<@!" + userID + ">"
-                });
 
+
+            //purge WIP
+            case 'wipe':
+                bot.deleteMessages({
+                  channelID: channelID,
+                  messageIDs: ["552033149643653130","552033359505915926","552034019706011658","552034576260923402","552034785934049280"]
+                })
                 break;
+
+            case 'get':
+              bot.getMessages({
+                channelID: channelID,
+                limit: 10
+              }, (response) => {
+                console.log(response)
+              });
+              break;
+
+            case 'test':
+              bot.sendMessage({
+                to: channelID,
+                message: 'Live!'
+              });
+              break;
     }
   }
 });
