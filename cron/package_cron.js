@@ -4,19 +4,24 @@ const search = require('../actions/ups_search.js');
 let temp;
 
 const packageCron = () => {
+  // 30 min cron job would be '*/30 * * * *'
   cron.schedule('*/5 * * * * *', async () => {
-    const searchResult = await search('');
+    const searchResult = await search('1Z58W4F50340368007');
     console.log(searchResult);
-    if (temp === undefined) {
+    switch (true) {
       // Add new current status into DB
-      temp = searchResult;
-      console.log('new temp')
-    } else if (temp !== searchResult) {
+      case temp === undefined:
+        temp = searchResult;
+        console.log('new temp');
+        break;
       // Add new current status into DB
-      console.log('different');
-    } else {
+      case temp !== searchResult:
+        console.log('different');
+        break;
       // Do nothing
-      console.log('same')
+      default:
+        console.log('same');
+        break;
     }
   });
 }
