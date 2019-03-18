@@ -37,30 +37,34 @@ const searchPackage = (activity) => {
       return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
     case 'M':
       return `${activity.Status.Description} on ${dateTime}`;
+    case 'X': //T he receiver was not available for delivery. We'll make a second attempt the next business day.
+      return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
     default:
       return `Untracked ${trackingData.Status}`;
   };
 };
 
 /**
- * Async function to run through seachPackage
+ * Async function to run through searchPackage
  * @param {String} arg3 - string for third argument "all" 
  * @return {String} - Resolves with first or all package status descriptions
  */
 async function search(trackingId, arg3) {
   try {
     let message = '';
-    const data = await packageTracking(trackingId);
-    const trackingData = data.data.TrackResponse.Shipment.Package.Activity;
-    switch (arg3) {
-      case '--all':
+    const pkgData = await packageTracking(trackingId);  
+    const trackingData = pkgData.data.TrackResponse.Shipment.Package.Activity;
+    switch (true) {
+      case (arg3 === '--all' && trackingData[0] !== undefined):
         for ([index, activity] of trackingData.entries()) {
           const allData = await searchPackage(activity);
           message = `${message}${allData}\n`;
         };
         return message;
       default:
-        return searchPackage(trackingData[0]);
+        return (trackingData[0] === undefined) ? 
+          searchPackage(trackingData) :
+          searchPackage(trackingData[0]);
     };
   } catch(err) {
     return `ERROR: ${err}`;
@@ -68,3 +72,16 @@ async function search(trackingId, arg3) {
 };
 
 module.exports = search;
+// async function whaaat() {
+//   const whya = await search('1Z58W4F50340368007', '--all')
+//   // const what = await packageTracking('1Z58W4F50340368007')
+//   // const what = await search('1Z58W4F50340368007')
+//   // const what = await search('1Z6311RA0397945547', '--all')
+//   // console.log(what)
+//   console.log(whya)
+// }
+
+// whaaat();
+
+// search('1Z6311RA0397945547')
+// console.log('why')
