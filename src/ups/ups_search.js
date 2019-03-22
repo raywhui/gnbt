@@ -1,6 +1,6 @@
 const axios = require("axios");
 const auth = require("../auth.json");
-const upsReqBody = require("./consts/requestBody.js");
+const upsReqBody = require("../consts/upsReqBody.js");
 const moment = require("moment");
 
 /**
@@ -37,7 +37,7 @@ const searchPackage = (activity) => {
       return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
     case 'M':
       return `${activity.Status.Description} on ${dateTime}`;
-    case 'X': //T he receiver was not available for delivery. We'll make a second attempt the next business day.
+    case 'X': // The receiver was not available for delivery. We'll make a second attempt the next business day.
       return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
     default:
       return `Untracked ${trackingData.Status}`;

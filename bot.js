@@ -1,15 +1,7 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const auth = require('./auth.json');
-const search = require('./actions/ups_search.js');
-
-// Configure logger settings
-logger.remove(logger.transports.Console);
-logger.add(new logger.transports.Console, {
-  colorize: true
-});
-
-logger.level = 'debug';
+const search = require('./src/ups/ups_search.js');
 
 // Initialize Discord Bot
 const bot = new Discord.Client({
@@ -17,10 +9,19 @@ const bot = new Discord.Client({
   autorun: true
 });
 
-bot.on('ready', (evt) => {
-  logger.info('Connected');
-  logger.info('Logged in as: ');
-  logger.info(bot.username + ' - (' + bot.id + ')');
+// Object literal commands
+const commands = {
+  track: '1',
+  chow: '2',
+  whoami: '3',
+  help: '4',
+  test: '5',
+}
+
+bot.on('ready', () => {
+  console.log('Connected');
+  console.log('Logged in as: ');
+  console.log(bot.username + ' - (' + bot.id + ')');
 });
 
 bot.setPresence({
@@ -28,6 +29,9 @@ bot.setPresence({
     name: "games with your heart."
   }
 });
+
+
+console.log(commands['track'])
 
 bot.on('message', function (user, userID, channelID, message, evt) {
   // Sends message to channel
@@ -72,10 +76,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         //$chow <empty> ---> any restaurant 3.5+ stars within 5 miles
         switch (secCmd) {
           case 'japanese':
-            msg('testing "eat at" japanese command');
+            msg('testing "eat at" japanese');
             break;
           default:
-            msg('testing "eat at" any category command');
+            msg('testing "eat at" any category');
             break;
         }
         break;
