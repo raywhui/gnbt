@@ -17,6 +17,8 @@ This is a multifunctional, quality of life discord bot that currently has the fo
 3. Run `node bot.js` to run the bot on your Discord server.
 4. (Add more instructions after we get an actual server up)
 
+## File Structure
+
 ## Future Updates
 Planned updates for our bot, broken down into functionality we need immediately and other's that are lower priority.
 
@@ -28,8 +30,9 @@ Planned updates for our bot, broken down into functionality we need immediately 
 - DHL package tracking
 - Mass message delete
 - Event Calendar
+- Bill splitting
 ## Contributors
 - raywhui (Lead Developer)
 - jktam (Developer)
 - alvinwklee (Product Designer that edits readme's)
-- heyfdc (has yet to commit anything)
+- heyfdc (commited something)
