@@ -17,5 +17,6 @@ const packageTracking = (tracking) => {
       auth.upsPass,
       auth.upsServiceAccessToken,
       tracking
-    ));
+    )
+  );
 };

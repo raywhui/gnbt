@@ -31,6 +31,7 @@ Planned updates for our bot, broken down into functionality we need immediately 
 - Mass message delete
 - Event Calendar
 - Bill splitting
+- User command tracking (Checks user command, creates pass/fail log)
 ## Contributors
 - raywhui (Lead Developer)
 - jktam (Developer)

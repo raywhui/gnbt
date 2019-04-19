@@ -1,30 +1,20 @@
-const Discord = require('discord.io');
-const logger = require('winston');
-const auth = require('./auth.json');
-// const search = require('./src/ups/ups_search.js');
-const help = require('./commands/help/help');
-
-//BOt.js should only deal with connecting discord functionality and the logic in `./commands`. Export the functions into lookup.js
-
-// Initialize Discord Bot
-const bot = new Discord.Client({
-  token: auth.token,
-  autorun: true
-});
+// Templatizes commonly used Discord bot commands
+//Bot.js should only deal with connecting discord functionality and the logic in `./commands`. Export the functions into lookup.js
 
 // Send message
-const msg = (channelID, val) => {
+const msg = (bot, channelID, val) => {
   bot.sendMessage({
     to: channelID,
-    message: val
+    message: val,
   });
 };
 
 // Delete messages (should be admin level command)
+// Update with promisify
 const dlt = (channelID, msgLimit) => {
   bot.getMessages({
     channelID: channelID,
-    limit: msgLimit
+    limit: msgLimit,
   }, (err, val) => {
     if (err) {
       console.error(err);
@@ -40,45 +30,10 @@ const dlt = (channelID, msgLimit) => {
   })
 }
 
-const what = (hmm) => {
-  console.log(hmm);
+module.exports = {
+  msg,
+  dlt,
 }
-
-// Object literal commands
-const commands = {
-  track: what,
-  chow: '2',
-  whoami: '3',
-  help: help,
-  test: '5',
-}
-
-// Discord Bot Initialization
-bot.on('ready', () => {
-  console.log('Connected');
-  console.log('Logged in as: ');
-  console.log(bot.username + ' - (' + bot.id + ')');
-});
-
-bot.setPresence({
-  game: {
-    name: "games with your heart."
-  }
-});
-
-
-commands['help']();
-
-bot.on('message', function (user, userID, channelID, message, evt) {
-  // Sends message to channel
-  const msg = (val) => {
-    bot.sendMessage({
-      to: channelID,
-      message: val
-    });
-  }
-})
-
 
 
 // bot.on('message', function (user, userID, channelID, message, evt) {

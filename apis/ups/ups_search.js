@@ -1,12 +1,13 @@
-const axios = require("axios");
-const auth = require("../auth.json");
-const upsReqBody = require("../consts/upsReqBody.js");
-const moment = require("moment");
+const axios = require("./node_modules/axios");
+const auth = require("../auth.json.js");
+const upsReqBody = require("./consts/upsReqBody.js");
+const moment = require("./node_modules/moment");
 
 /**
- * API post request to ups (Poorly designed API as it should only be a pull request);
+ * @desc API post request to ups 
+ * (UPS has a poorly designed API as it should be a get request)
  * @param {String} tracking - tracking ID
- * @return {Object} Resolves with ups tracking response
+ * @return {Object} - Resolves with ups tracking response
  */
 const packageTracking = (tracking) => {
   return axios.post(
@@ -21,7 +22,7 @@ const packageTracking = (tracking) => {
 };
 
 /**
- * Function to pull relevant data for easy user consumption
+ * @desc Function to pull relevant data for easy user consumption
  * @param {Object} activity - Object containing ups package tracking information
  * @return {String} - Resolves with package status description
  */
@@ -45,7 +46,7 @@ const searchPackage = (activity) => {
 };
 
 /**
- * Async function to run through searchPackage
+ * @desc Async function to run through searchPackage
  * @param {String} arg3 - string for third argument "all" 
  * @return {String} - Resolves with first or all package status descriptions
  */
@@ -72,16 +73,3 @@ async function search(trackingId, arg3) {
 };
 
 module.exports = search;
-// async function whaaat() {
-//   const whya = await search('1Z58W4F50340368007', '--all')
-//   // const what = await packageTracking('1Z58W4F50340368007')
-//   // const what = await search('1Z58W4F50340368007')
-//   // const what = await search('1Z6311RA0397945547', '--all')
-//   // console.log(what)
-//   console.log(whya)
-// }
-
-// whaaat();
-
-// search('1Z6311RA0397945547')
-// console.log('why')
