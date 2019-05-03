@@ -4,7 +4,7 @@ const upsReqBody = require("./consts/upsReqBody.js");
 const moment = require("./node_modules/moment");
 
 /**
- * @desc API post request to ups 
+ * @desc API post request to ups
  * (UPS has a poorly designed API as it should be a get request)
  * @param {String} tracking - tracking ID
  * @return {Object} - Resolves with ups tracking response
@@ -47,13 +47,13 @@ const searchPackage = (activity) => {
 
 /**
  * @desc Async function to run through searchPackage
- * @param {String} arg3 - string for third argument "all" 
+ * @param {String} arg3 - string for third argument "all"
  * @return {String} - Resolves with first or all package status descriptions
  */
 async function search(trackingId, arg3) {
   try {
     let message = '';
-    const pkgData = await packageTracking(trackingId);  
+    const pkgData = await packageTracking(trackingId);
     const trackingData = pkgData.data.TrackResponse.Shipment.Package.Activity;
     switch (true) {
       case (arg3 === '--all' && trackingData[0] !== undefined):
@@ -63,7 +63,7 @@ async function search(trackingId, arg3) {
         };
         return message;
       default:
-        return (trackingData[0] === undefined) ? 
+        return (trackingData[0] === undefined) ?
           searchPackage(trackingData) :
           searchPackage(trackingData[0]);
     };
