@@ -1,6 +1,8 @@
 const Discord = require('discord.io');
 const auth = require('./auth.json');
 const help = require('./commands/help/help.bot');
+const track = require('./commands/track/track.bot');
+const error = require('./commands/error/error.bot');
 
 // Initialize Discord Bot
 const bot = new Discord.Client({
@@ -30,24 +32,20 @@ bot.setPresence({
 bot.on('message', function (user, userID, channelID, message, evt) {
   // Object literal commands
   const commands = {
-    track: '1',
-    chow: '2',
-    whoami: '3',
-    help: help,
-    test: () => {},
+    track: track,
+    // chow: '2',
+    // whoami: '3',
+    help: help
   };
 
-  if (message.substring(0, 1) == '$') {
-    var args = message.substring(1).split(' ');
-    var cmd = args[0];
-    // const cmds = args[]
+  // Prevents bot from activating itself on message
+  if (message.substring(0, 1) == '$' && userID !== '551329558629187594') {
+    let args = message.substring(1).split(' ');
+    const cmd = args[0];
     args = args.splice(1);
 
     console.log(`User: ${user}(${userID}) // Command: ${message}`);
 
-    // Prevents bot from activating itself on message
-    if (userID !== '551329558629187594') {
-      commands[cmd](bot, channelID);
-    };
+    commands[cmd] !== undefined ? commands[cmd](bot, channelID, ...args) : error(bot, channelID);
   };
 });

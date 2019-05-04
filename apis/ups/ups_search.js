@@ -1,7 +1,7 @@
-const axios = require("./node_modules/axios");
-const auth = require("../auth.json.js");
-const upsReqBody = require("./consts/upsReqBody.js");
-const moment = require("./node_modules/moment");
+const axios = require("axios");
+const auth = require("../../auth.json");
+const upsReqBody = require("../consts/upsReqBody.js");
+const moment = require("moment");
 
 /**
  * @desc API post request to ups
@@ -57,9 +57,10 @@ async function search(trackingId, arg3) {
     const trackingData = pkgData.data.TrackResponse.Shipment.Package.Activity;
     switch (true) {
       case (arg3 === '--all' && trackingData[0] !== undefined):
+        trackingData.reverse(); // Reverses trackingData array to bring oldest process first
         for ([index, activity] of trackingData.entries()) {
           const allData = await searchPackage(activity);
-          message = `${message}${allData}\n`;
+          message = `${message}${allData}\n---------------------------------------------------------\n`;
         };
         return message;
       default:

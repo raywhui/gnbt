@@ -9,8 +9,8 @@ const track = (secCmd, thirdCmd) => {
 
     // UPS tracking case
     if (`${firstChar}${secChar}` == `1Z` && secCmd.length == 18) {
-      const res = search(secCmd, thirdCmd);
-      return ```${res}```;
+      // const res = ;
+      return search(secCmd, thirdCmd);
       // Add more case/else if statements for other package searches
     } else {
       return `Invalid tracking code.`;
