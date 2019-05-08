@@ -48,7 +48,7 @@ const searchPackage = (activity) => {
 /**
  * @desc Async function to run through searchPackage
  * @param {String} arg3 - string for third argument "all"
- * @return {String} - Resolves with first or all package status descriptions
+ * @return {Promise} - Resolves with promise of first or all package status descriptions
  */
 async function search(trackingId, arg3) {
   try {

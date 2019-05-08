@@ -1,49 +1,77 @@
 const axios = require('axios');
 const util = require('util');
+const moment = require('moment');
 const parseString = require('xml2js').parseString;
+
 const { fedexAuthKey, fedexPassword, fedexAccNum, fedexMeterNumber} = require('../../auth.json').fedex;
 const fedexXmlBody = require('../consts/fedexXmlBody.js');
-
-// const moment = require('moment');
 
 // Converts parseString from callback into promise
 const parse = util.promisify(parseString);
 
-//https://www.fedex.com/us/developer/downloads/pdf/2018/FedEx_WebServices_DevelopersGuide_v2018.pdf#page=652&zoom=100,0,109
-
-
 /**
- * API post request to ups (Poorly designed API as it should only be a pull request);
+ * API SOAP post request to Fedex;
  * @param {String} tracking - tracking ID
- * @return {Object} Resolves with ups tracking response
+ * @return {Object} Resolves with fedex tracking response
  */
 const packageTracking = (tracking) => {
   return axios.post(
-    'https://ws.fedex.com:443/web-services ',
+    'https://ws.fedex.com:443/web-services',
     // key, password, accNum, meterNum, trackingNum
     fedexXmlBody(
       fedexAuthKey,
       fedexPassword,
       fedexAccNum,
       fedexMeterNumber,
-      '487004955503',
+      tracking,
     ),
   );
 };
 
-async function why() {
-  const what = await packageTracking();
-  const result = await parse(what.data);
+/**
+ * @desc Function to pull relevant data for easy user consumption
+ * @param {Object} result - Object containing Fedex package tracking information
+ * @return {String} - Resolves with package status description
+ */
+const searchPackage = result => {
   const { StatusDetail, DatesOrTimes } = result['SOAP-ENV:Envelope']['SOAP-ENV:Body'][0].TrackReply[0].CompletedTrackDetails[0].TrackDetails[0];
-  console.log(StatusDetail[0])
-  console.log(DatesOrTimes)
-  // Need status details
-  // DatesOrTimes
-  //`${activity.Status.Description} at 
-  // ${activity.ActivityLocation.Address.City}, 
-  // ${activity.ActivityLocation.Address.StateProvinceCode} 
-  // on ${dateTime}`
-  // Origin Scan at Cerritos, CA on 7:25:53pm May 02, 2019
+  const dateTime = moment(
+    DatesOrTimes[0].DateOrTimestamp[0],
+    'YYYY-MM-DD hh:mm'
+  ).format('h:mma MMM DD, YYYY');
+
+  // Since I only have 1 tracking ID, not sure how the other conditions results are formated.
+  // Add switch statements when more are created
+  return `${StatusDetail[0].Description[0]} at ${StatusDetail[0].Location[0].City[0]}, ${StatusDetail[0].Location[0].StateOrProvinceCode[0]} on ${dateTime}`;
+// switch (StatusDetail[0].Code[0]) {
+  //   case 'DL': // Delivered
+  //     return `${StatusDetail[0].Description[0]} at ${StatusDetail[0].Location[0].City[0]}, ${StatusDetail[0].Location[0].StateOrProvinceCode[0]} on ${dateTime}`;
+  //   case 'I':
+  //     return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
+  //   case 'M':
+  //     return `${activity.Status.Description} on ${dateTime}`;
+  //   case 'X': // The receiver was not available for delivery. We'll make a second attempt the next business day.
+  //     return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
+  //   default:
+  //     return `Untracked ${trackingData.Status}`;
+  // };
 };
 
-why();
+/**
+ * @desc Async function to run through searchPackage
+ * @param {String} trackingId - string for Fedex tracking ID number
+ * @param {String} arg3 - string for third argument "all"
+ * @return {Promise} - Resolves with promise of current package status description
+ */
+async function searchFedex(trackingId, arg3) {
+  try {
+    const pkgData = await packageTracking(trackingId);
+    const trackingData = await parse(pkgData.data);
+    const result = await searchPackage(trackingData);
+    return result;
+  } catch (err) {
+    return 'Invalid Fedex Tracking Number.';
+  }
+};
+
+module.exports = searchFedex;

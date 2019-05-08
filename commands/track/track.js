@@ -1,4 +1,5 @@
 const search = require('../../apis/ups/ups_search');
+const searchFedex = require('../../apis/fedex/fedex_search');
 
 const track = (secCmd, thirdCmd) => {
   let trackId, firstChar, secChar;
@@ -12,7 +13,17 @@ const track = (secCmd, thirdCmd) => {
       // const res = ;
       return search(secCmd, thirdCmd);
       // Add more case/else if statements for other package searches
-    } else {
+    } 
+    // Fedex tracking case
+    else if (
+      (`${firstChar}${secChar}` !== `1Z`) && 
+      (trackId.length === 12) ||
+      (trackId.length === 13) ||
+      (trackId.length === 14)
+    ) {
+      return searchFedex(secCmd);
+    }
+    else {
       return `Invalid tracking code.`;
     };
   } else {
