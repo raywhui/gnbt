@@ -1,12 +1,13 @@
 const axios = require("axios");
-const auth = require("../auth.json");
-const upsReqBody = require("./consts/requestBody.js");
+const auth = require("../../auth.json");
+const upsReqBody = require("../consts/upsReqBody.js");
 const moment = require("moment");
 
 /**
- * API post request to ups (Poorly designed API as it should only be a pull request);
+ * @desc API post request to ups
+ * (UPS has a poorly designed API as it should be a get request)
  * @param {String} tracking - tracking ID
- * @return {Object} Resolves with ups tracking response
+ * @return {Object} - Resolves with ups tracking response
  */
 const packageTracking = (tracking) => {
   return axios.post(
@@ -21,7 +22,7 @@ const packageTracking = (tracking) => {
 };
 
 /**
- * Function to pull relevant data for easy user consumption
+ * @desc Function to pull relevant data for easy user consumption
  * @param {Object} activity - Object containing ups package tracking information
  * @return {String} - Resolves with package status description
  */
@@ -37,7 +38,7 @@ const searchPackage = (activity) => {
       return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
     case 'M':
       return `${activity.Status.Description} on ${dateTime}`;
-    case 'X': //T he receiver was not available for delivery. We'll make a second attempt the next business day.
+    case 'X': // The receiver was not available for delivery. We'll make a second attempt the next business day.
       return `${activity.Status.Description} at ${activity.ActivityLocation.Address.City}, ${activity.ActivityLocation.Address.StateProvinceCode} on ${dateTime}`;
     default:
       return `Untracked ${trackingData.Status}`;
@@ -45,24 +46,25 @@ const searchPackage = (activity) => {
 };
 
 /**
- * Async function to run through searchPackage
- * @param {String} arg3 - string for third argument "all" 
- * @return {String} - Resolves with first or all package status descriptions
+ * @desc Async function to run through searchPackage
+ * @param {String} arg3 - string for third argument "all"
+ * @return {Promise} - Resolves with promise of first or all package status descriptions
  */
 async function search(trackingId, arg3) {
   try {
     let message = '';
-    const pkgData = await packageTracking(trackingId);  
+    const pkgData = await packageTracking(trackingId);
     const trackingData = pkgData.data.TrackResponse.Shipment.Package.Activity;
     switch (true) {
       case (arg3 === '--all' && trackingData[0] !== undefined):
+        trackingData.reverse(); // Reverses trackingData array to bring oldest process first
         for ([index, activity] of trackingData.entries()) {
           const allData = await searchPackage(activity);
-          message = `${message}${allData}\n`;
+          message = `${message}${allData}\n---------------------------------------------------------\n`;
         };
         return message;
       default:
-        return (trackingData[0] === undefined) ? 
+        return (trackingData[0] === undefined) ?
           searchPackage(trackingData) :
           searchPackage(trackingData[0]);
     };
@@ -72,16 +74,3 @@ async function search(trackingId, arg3) {
 };
 
 module.exports = search;
-// async function whaaat() {
-//   const whya = await search('1Z58W4F50340368007', '--all')
-//   // const what = await packageTracking('1Z58W4F50340368007')
-//   // const what = await search('1Z58W4F50340368007')
-//   // const what = await search('1Z6311RA0397945547', '--all')
-//   // console.log(what)
-//   console.log(whya)
-// }
-
-// whaaat();
-
-// search('1Z6311RA0397945547')
-// console.log('why')
