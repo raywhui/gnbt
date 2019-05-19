@@ -3,7 +3,7 @@ const util = require('util');
 const moment = require('moment');
 const parseString = require('xml2js').parseString;
 
-const { fedexAuthKey, fedexPassword, fedexAccNum, fedexMeterNumber} = require('../../auth.json').fedex;
+const { fedexAuthKey, fedexPassword, fedexAccNum, fedexMeterNumber } = require('../../auth.json').fedex;
 const fedexXmlBody = require('../consts/fedexXmlBody.js');
 
 // Converts parseString from callback into promise
