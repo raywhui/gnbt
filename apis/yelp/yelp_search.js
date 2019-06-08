@@ -1,7 +1,5 @@
 const axios = require('axios');
 const { yelpAPIKey } = require('../../auth.json');
-// const util = require('util');
-// const moment = require('moment');
 
 const yelpBusiness = (term, place) => {
   return axios.get(
@@ -12,7 +10,7 @@ const yelpBusiness = (term, place) => {
       params: {
         term,
         location: place,
-        // attributes: "hot_and_new",
+        attributes: "hot_and_new",
         sort: "rating"
       },
     }
@@ -33,13 +31,8 @@ async function searchYelp(term, place) {
     rating.toString().includes('.5') ? starRating = `${starRating}½` : '';
     return `${name}\n${locationJoined}\n${categoriesJoined}\n${starRating}\nReview Count: \`${review_count}\`\n\n${url}`;
   } catch (err) {
-    console.log('Yelp Help', err);
+    return `There's nothing new to chow here.`
   }
 };
 
 module.exports = searchYelp;
-// searchYelp('ipot', 'alameda');
-// const ratingStars = "3.5";
-// const rating = 5
-
-// console.log(starRating)
