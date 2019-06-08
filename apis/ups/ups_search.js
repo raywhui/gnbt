@@ -69,7 +69,7 @@ async function search(trackingId, arg3) {
           searchPackage(trackingData[0]);
     };
   } catch(err) {
-    return `ERROR: ${err}`;
+    return `Invalid UPS Tracking Code.`;
   };
 };
 

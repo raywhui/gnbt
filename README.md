@@ -20,21 +20,23 @@ This is a multifunctional, quality of life discord bot that currently has the fo
   }
 }
 ```
-3. Run `node bot.js` to run the bot on your Discord server.
+3. Run `node init.js` to run the bot on your Discord server.
 4. (Add more instructions after we get an actual server up)
 
 ## File Structure
 ```
 .
-├── apis                            # Functions that hook into API's
-│   ├── consts                      # Templated API queries
-├── commands                        # Discord command files
-│   ├── command                     # Relevant files for single command
-│   │   ├── command.bot.js          # Connects command to bot commands
-│   │   └── command.js              # Returns result of command
-├── cron                            # Files for cron job
-├── bot.js                          # Discord bot related functions
-├── init.js                         # Initializes bot in Discord
+├── apis                            # Functions that hook into API's.
+│   ├── consts                      # Templated API queries.
+├── commands                        # Discord command files.
+│   ├── command                     # Relevant files for single command.
+│   │   ├── command.bot.js          # Connects command to bot commands.
+│   │   └── command.js              # Returns result of command.
+│   ... 
+├── cron                            # Files for cron job.
+├── bot.js                          # Discord bot related functions.
+├── init.js                         # Initializes bot in Discord.
+├── auth.json                       # Credentials JSON file.
 ```
 
 ## Future Updates
@@ -44,8 +46,12 @@ Planned updates for our bot, broken down into functionality we need immediately 
 - Fedex package tracking 
 - USPS package tracking
 - Yelp Restaurant Search
-- Setup MYSQL Server for tracking + logging
+- Setup MySQL Server for tracking + logging
+- CI/CD (Jenkins, Azure, or GitLab)
 #### Later
+- Convert to ES6
+- Babel
+- Move main functions into `/src` folder
 - DHL package tracking
 - Mass message delete
 - Event Calendar

@@ -2,6 +2,7 @@ const Discord = require('discord.io');
 const auth = require('./auth.json');
 const help = require('./commands/help/help.bot');
 const track = require('./commands/track/track.bot');
+const chow = require('./commands/chow/chow.bot');
 const error = require('./commands/error/error.bot');
 
 // Initialize Discord Bot
@@ -33,9 +34,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   // Object literal commands
   const commands = {
     track: track,
-    // chow: '2',
-    // whoami: '3',
-    help: help
+    help: help,
+    chow: chow,
   };
 
   // Prevents bot from activating itself on message
