@@ -28,7 +28,6 @@ const fedexXmlBody = (key, password, accNum, meterNum, trackingNum) => {
                   <v16:Minor>0</v16:Minor>
               </v16:Version>
               <v16:SelectionDetails>
-                  <v16:CarrierCode>FDXE</v16:CarrierCode>
                   <v16:PackageIdentifier>
                       <v16:Type>TRACKING_NUMBER_OR_DOORTAG</v16:Type>
                       <v16:Value>${trackingNum}</v16:Value>
