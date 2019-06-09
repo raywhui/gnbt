@@ -13,6 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "NODE_PATH=. node init.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

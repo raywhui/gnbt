@@ -70,6 +70,7 @@ async function searchFedex(trackingId, arg3) {
     const result = await searchPackage(trackingData);
     return result;
   } catch (err) {
+    console.log(err)
     return 'Invalid Fedex Tracking Number.';
   }
 };
