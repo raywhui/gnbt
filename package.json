@@ -4,7 +4,7 @@
   "description": "Multifunctional discord bot",
   "main": "bot.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "express": "^4.16.4",
     "moment": "^2.24.0",
